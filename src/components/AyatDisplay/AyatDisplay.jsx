@@ -1,0 +1,45 @@
+import React from 'react';
+
+function AyatDisplay({ ayatData, hiddenText }) {
+    if (!ayatData) {
+        //return <div className="text-center p-10 text-gray-500">Pilih surat untuk mulai membaca</div>;
+
+        return (
+            <div className="flex items-center justify-center h-64">
+                <div className="text-gray-500">Memuat ayat...</div>
+            </div>
+        );
+    }
+
+    const displayedText = hiddenText ? "- - - - -" : ayatData.text;
+
+    return (
+        <div className="bg-white p-8 rounded-lg shadow-md mb-6">
+            {/* Badge Ayat Number */}
+            <div className="flex justify-center mb-6">
+                <span className="bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-semibold">
+                    Ayat ke-{ayatData.numberInSurah}
+                </span>
+            </div>
+
+            {/* Arab Texts */}
+            <div className="text-emerald-700 text-center mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200 text-3xl leading-loose" dir="rtl">
+                {displayedText}
+            </div>
+
+            {/* Translation */}
+            {ayatData.translation && (
+                <div className="mt-6 p-6 bg-emerald-50 rounded-lg border-l-4 border-emerald-500">
+                    <h3 className="text-sm font-semibold text-emerald-700 mb-3 uppercase tracking-wide">
+                        Terjemahan
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed text-lg">
+                        {ayatData.translation}
+                    </p>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default AyatDisplay;
