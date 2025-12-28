@@ -18,9 +18,12 @@
 function normalizeQuranComResponse(verseData) {
     if (!verseData) return null;
 
-    const translation = verseData.translations && verseData.translations.length > 0
+    let translation = verseData.translations && verseData.translations.length > 0
         ? verseData.translations[0].text
         : '';
+
+    // Strip <sup> tags and their content (footnotes) to keep the text clean
+    translation = translation.replace(/<sup[^>]*>.*?<\/sup>/g, '');
 
     // Parse verse_key "2:255" -> surah 2, ayat 255
     const [surahNum, ayatNum] = verseData.verse_key.split(':').map(Number);
