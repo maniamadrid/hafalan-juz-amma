@@ -124,6 +124,24 @@ export default function useHafalan() {
         }
     }
 
+    // go to 1st ayat
+    const handleToFirstAyat = async () => {
+        const ayatData = await fetchAyat(activeSurah.id, 1, selectedLanguage);
+        setActiveAyat(1);
+        setAyatData(ayatData);
+    };
+
+    // go to last memorized ayat
+    const handleToLastMemorizedAyat = async () => {
+        const memorized = activeSurah.memorizedAyat || [];
+        if (memorized.length === 0) return;
+
+        const lastMemorized = Math.max(...memorized);
+        setActiveAyat(lastMemorized);
+        const ayatData = await fetchAyat(activeSurah.id, lastMemorized, selectedLanguage);
+        setAyatData(ayatData);
+    }
+
     return {
         surahs,
         activeSurah,
@@ -131,6 +149,8 @@ export default function useHafalan() {
         setActiveAyat,
         ayatData,
         handleSelectSurah,
+        handleToFirstAyat,
+        handleToLastMemorizedAyat,
         handlePreviousAyat,
         handleNextAyat,
         markAsMemorized
