@@ -47,6 +47,22 @@ const NavigationControls = ({
                     >
                         Next ➡️
                     </button>
+                    {/* Desktop Button */}
+                    <button
+                        onClick={markAsMemorized}
+                        className="
+                        hidden md:block w-full md:w-auto px-6 py-3 font-bold rounded-lg shadow-lg transition duration-300
+                        bg-emerald-600 text-white
+                        hover:bg-emerald-700
+                        disabled:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-60
+                    "
+                        disabled={
+                            activeAyat <= activeSurah?.memorizedAyat?.length ||
+                            activeSurah?.memorizedAyat?.includes(activeAyat)
+                        }
+                    >
+                        ✅ Sudah Hafal
+                    </button>
                 </div>
             </div>
         </div>

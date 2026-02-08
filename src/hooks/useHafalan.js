@@ -68,12 +68,42 @@ export default function useHafalan() {
         setAyatData(ayat);
     };
 
+    // markAsMemorized implementation
+    const markAsMemorized = async () => {
+        console.log('activeAyat',activeAyat)
+        if (!activeSurah) return;
+
+        const updatedSurahs = surahs.map(s => {
+            if (s.id !== activeSurah.id) return s;
+            const memorized = s.memorizedAyat ? [...s.memorizedAyat] : [];
+            if (!memorized.includes(activeAyat)) {
+                memorized.push(activeAyat);
+            }
+
+            const isCompleted = memorized.length === s.ayatCount;
+            return {
+                ...s,
+                memorizedAyat: memorized,
+                isCompleted,
+                activeAyat: activeAyat,
+            };
+        });
+
+        setSurahs(updatedSurahs);
+        const updatedActiveSurah = updatedSurahs.find(s => s.id === activeSurah.id);
+        setActiveSurah(updatedActiveSurah);
+    }
+
+    const handleNextAyat = async () => {}
+
     return {
         surahs,
         activeSurah,
         activeAyat,
         setActiveAyat,
         ayatData,
-        handleSelectSurah
+        handleSelectSurah,
+        handleNextAyat,
+        markAsMemorized
     }
 }
