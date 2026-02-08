@@ -1,7 +1,7 @@
 import React from "react";
 
 const HafalanModeToggle = ({ hafalanMode, toggleHafalanMode }) => {
-  console.log('hafalanMode:', hafalanMode);
+  
   return (
     <div className="flex items-center justify-center mb-4">
       <button

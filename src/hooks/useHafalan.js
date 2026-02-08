@@ -70,7 +70,7 @@ export default function useHafalan() {
 
     // markAsMemorized implementation
     const markAsMemorized = async () => {
-        console.log('activeAyat',activeAyat)
+        
         if (!activeSurah) return;
 
         const updatedSurahs = surahs.map(s => {
@@ -94,7 +94,35 @@ export default function useHafalan() {
         setActiveSurah(updatedActiveSurah);
     }
 
-    const handleNextAyat = async () => {}
+    // go to next ayat
+    const handleNextAyat = async () => {
+        let surah = surahs.find(s => s.id === activeSurah.id);
+        if (!surah) return;
+
+        if (activeAyat < surah.ayatCount) {
+            let nextAyat = activeAyat + 1;
+            
+            /*if (reviewMode) {
+
+            }*/
+
+            const newAyatData = await fetchAyat(activeSurah.id, nextAyat, selectedLanguage);
+            setAyatData(newAyatData);
+            setActiveAyat(nextAyat);
+        }
+    }
+
+    // go to previous ayat
+    const handlePreviousAyat = async () => {
+        console.log('activeAyat ',activeAyat)
+        if (activeAyat > 1) {
+            let prevAyat = activeAyat - 1;
+
+            const ayatData = await fetchAyat(activeSurah.id, prevAyat, selectedLanguage);
+            setActiveAyat(prevAyat);
+            setAyatData(ayatData);
+        }
+    }
 
     return {
         surahs,
@@ -103,6 +131,7 @@ export default function useHafalan() {
         setActiveAyat,
         ayatData,
         handleSelectSurah,
+        handlePreviousAyat,
         handleNextAyat,
         markAsMemorized
     }
