@@ -30,7 +30,7 @@ function App() {
 
     const handleSurahSelect = (surah) => {
         handleSelectSurah(surah);
-        setIsMobileMenuOpen(false); // Close mobile menu after selection
+        setIsMobileMenuOpen(false);
     };
 
     return (
@@ -91,7 +91,7 @@ function App() {
 
                 {/* Main content area */}
                 <main className="flex-1 p-4 md:p-8 overflow-y-auto bg-gray-50">
-                {!activeSurah ? (
+                {!ayatData ? (
                         <div className="flex flex-col items-center justify-center h-full text-gray-600 px-4">
                             <svg className="w-16 h-16 md:w-24 md:h-24 mb-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253M12 6.253c1.168-.776 2.754-1.253 4.5-1.253 1.746 0 3.332.477 4.5 1.253m-12 0v13m0-13c-1.168.776-2.754 1.253-4.5 1.253S.168 6.253 1 6.253m11 0v13m0-13c1.168.776 2.754 1.253 4.5 1.253S21.832 6.253 23 6.253"></path>

@@ -1,9 +1,9 @@
 import React from 'react';
 
-function AyatDisplay({ ayatData, hiddenText }) {
+function AyatDisplay({ ayatData, activeAyat, hiddenText }) {
+    
     if (!ayatData) {
-        //return <div className="text-center p-10 text-gray-500">Pilih surat untuk mulai membaca</div>;
-
+        
         return (
             <div className="flex items-center justify-center h-64">
                 <div className="text-gray-500">Memuat ayat...</div>
@@ -18,7 +18,7 @@ function AyatDisplay({ ayatData, hiddenText }) {
             {/* Badge Ayat Number */}
             <div className="flex justify-center mb-6">
                 <span className="bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full text-sm font-semibold">
-                    Ayat ke-{ayatData.numberInSurah}
+                    Ayat ke-{activeAyat}
                 </span>
             </div>
 
