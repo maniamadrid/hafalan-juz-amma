@@ -135,7 +135,7 @@ function App() {
                                 <button
                                     onClick={handlePreviousAyat}
                                     disabled={activeAyat <= 1}
-                                    className="md:hidden p-2 bg-gray-200 text-gray-700 rounded-full shadow-md hover:bg-gray-300 disabled:opacity-30 disabled:cursor-not-allowed z-10"
+                                    className="md:hidden absolute left-2 top-6 -translate-y-1/2 p-2 bg-gray-200 text-gray-700 rounded-full shadow-md hover:bg-gray-300 disabled:opacity-30 disabled:cursor-not-allowed z-10"
                                     aria-label="Previous Ayat"
                                 >
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -159,7 +159,7 @@ function App() {
                                         activeAyat === activeSurah.ayatCount ||
                                         (activeSurah.memorizedAyat && activeAyat > activeSurah.memorizedAyat.length)
                                     }
-                                    className="md:hidden p-2 bg-gray-200 text-gray-700 rounded-full shadow-md hover:bg-gray-300 disabled:opacity-30 disabled:cursor-not-allowed z-10"
+                                    className="md:hidden absolute right-2 top-6 -translate-y-1/2 p-2 bg-gray-200 text-gray-700 rounded-full shadow-md hover:bg-gray-300 disabled:opacity-30 disabled:cursor-not-allowed z-10"
                                     aria-label="Next Ayat"
                                 >
                                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
