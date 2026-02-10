@@ -61,9 +61,27 @@ const NavigationControls = ({
                             activeSurah?.memorizedAyat?.includes(activeAyat)
                         }
                     >
-                        ✅ Sudah Hafal
+                        ✅ Tandai Hafal
                     </button>
                 </div>
+                {/* Mobile Floating Button */}
+                <button
+                    onClick={markAsMemorized}
+                    className="
+                        md:hidden fixed top-20 right-4 z-50
+                        w-12 h-12 rounded-full shadow-xl transition duration-300
+                        bg-emerald-600 text-white flex items-center justify-center
+                        hover:bg-emerald-700
+                        disabled:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-60
+                    "
+                    disabled={
+                        activeAyat <= activeSurah?.memorizedAyat?.length ||
+                        activeSurah?.memorizedAyat?.includes(activeAyat)
+                    }
+                    aria-label="Tandai Hafal"
+                >
+                    <span className="text-xl">✅</span>
+                </button>
             </div>
         </div>
     );
