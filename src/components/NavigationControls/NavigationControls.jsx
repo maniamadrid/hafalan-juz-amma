@@ -19,14 +19,14 @@ const NavigationControls = ({
                         disabled={activeAyat === 1}
                         className="px-4 py-3 bg-red-500 text-white font-bold rounded-lg shadow-lg hover:bg-red-600 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
                     >
-                        Ke Awal
+                        Ayat Pertama
                     </button>
                     <button
                         onClick={handleToLastMemorizedAyat}
                         disabled={!activeSurah?.memorizedAyat?.length || activeAyat === Math.max(...(activeSurah?.memorizedAyat || []))}
                         className="px-4 py-3 bg-blue-500 text-white font-bold rounded-lg shadow-lg hover:bg-blue-600 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
                     >
-                        Ke Akhir
+                        Batas Hafalan
                     </button>
                 </div>
                 <div className="hidden md:flex grid grid-cols-2 gap-2 w-full md:w-auto md:flex">
@@ -35,7 +35,7 @@ const NavigationControls = ({
                         disabled={activeAyat <= 1}
                         className="px-4 py-2 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        ⬅️ Prev
+                        ⬅️ Mundur
                     </button>
                     <button
                         onClick={handleNextAyat}
@@ -45,7 +45,7 @@ const NavigationControls = ({
                         }
                         className="px-4 py-2 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        Next ➡️
+                        Maju ➡️
                     </button>
                     {/* Desktop Button */}
                     <button
