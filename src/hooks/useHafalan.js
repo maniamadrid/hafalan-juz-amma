@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { fetchAyat } from '../utils/hafalanApi';
+import { saveProgress, loadProgress } from '../utils/historyManager';
 
 const initialSurahs = [
     { id: 78, name: "An-Naba'", ayatCount: 40 },
@@ -50,6 +51,47 @@ export default function useHafalan() {
     const [ayatData, setAyatData] = useState(null);
     const [selectedLanguage, setSelectedLanguage] = useState('id');
 
+    useEffect(() => {
+        // get saved progress from localStorage
+        const savedProgress = loadProgress();
+            
+        if (savedProgress) {
+            const updatedSurahs = initialSurahs.map(s => ({
+                ...s,
+                isCompleted: savedProgress[s.id]?.isCompleted || false,
+                memorizedAyat: savedProgress[s.id]?.memorizedAyat || [],
+            }));
+
+            setSurahs(updatedSurahs);
+
+            const lastActiveSurahId = Object.keys(savedProgress).find(
+                id => savedProgress[id].activeAyat > 0
+            );
+
+            if (lastActiveSurahId) {
+                const surah = updatedSurahs.find(
+                    s => s.id === parseInt(lastActiveSurahId)
+                );
+                setActiveSurah(surah);
+                setActiveAyat(surah.activeAyat || 1);
+            }
+        }
+    }, [])
+
+    // When a user marks an Ayat as memorized, surahs state is updated and saved to localStorage
+    const persistProgress = (currentSurahs) => {
+        const progressData = currentSurahs.reduce((acc, s) => ({
+            ...acc,
+            [s.id]: {
+                activeAyat: s.activeAyat || 0,
+                isCompleted: s.isCompleted,
+                memorizedAyat: s.memorizedAyat || [],
+                lastUpdated: new Date().toISOString()
+            }
+        }), {});
+        saveProgress(progressData);
+    }
+
     // when spesific surah selected
     const handleSelectSurah = async (surah) => {
         // Ensure surah has all required properties
@@ -68,7 +110,7 @@ export default function useHafalan() {
         setAyatData(ayat);
     };
 
-    // markAsMemorized implementation
+    // mark an ayat as memorized
     const markAsMemorized = async () => {
         
         if (!activeSurah) return;
@@ -92,6 +134,8 @@ export default function useHafalan() {
         setSurahs(updatedSurahs);
         const updatedActiveSurah = updatedSurahs.find(s => s.id === activeSurah.id);
         setActiveSurah(updatedActiveSurah);
+
+        persistProgress(updatedSurahs);
     }
 
     // go to next ayat
