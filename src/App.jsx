@@ -60,7 +60,7 @@ function App() {
                     <div className="text-right text-xs md:text-sm">
                         <div className="text-emerald-100 hidden sm:block">Total Progress</div>
                         <div className="font-bold">
-                            {surahs.filter(s => s.isCompleted).length}/{surahs.length}
+                            {surahs.filter(s => s.isCompleted).length} dari {surahs.length} Surah
                         </div>
                     </div>
                 </div>

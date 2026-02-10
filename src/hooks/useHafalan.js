@@ -50,6 +50,8 @@ export default function useHafalan() {
     const [activeAyat, setActiveAyat] = useState(null);
     const [ayatData, setAyatData] = useState(null);
     const [selectedLanguage, setSelectedLanguage] = useState('id');
+    const [hafalanMode, setHafalanMode] = useState('show');
+    const [hiddenText, setHiddenText] = useState(false);
 
     useEffect(() => {
         // get saved progress from localStorage
@@ -158,7 +160,6 @@ export default function useHafalan() {
 
     // go to previous ayat
     const handlePreviousAyat = async () => {
-        console.log('activeAyat ',activeAyat)
         if (activeAyat > 1) {
             let prevAyat = activeAyat - 1;
 
@@ -186,17 +187,29 @@ export default function useHafalan() {
         setAyatData(ayatData);
     }
 
+    // hide show
+    const toggleHafalanMode = () => {
+        setHafalanMode(prev => {
+            const next = prev === 'show' ? 'hide' : 'show';
+            setHiddenText(next === 'hide');
+            return next;
+        });
+    };
+
     return {
         surahs,
         activeSurah,
         activeAyat,
         setActiveAyat,
         ayatData,
+        hafalanMode,
+        hiddenText,
         handleSelectSurah,
         handleToFirstAyat,
         handleToLastMemorizedAyat,
         handlePreviousAyat,
         handleNextAyat,
-        markAsMemorized
+        markAsMemorized,
+        toggleHafalanMode
     }
 }
