@@ -68,11 +68,12 @@ const NavigationControls = ({
                 <button
                     onClick={markAsMemorized}
                     className="
-                        md:hidden fixed top-20 right-4 z-50
+                        md:hidden absolute top-20 right-4 z-50
                         w-12 h-12 rounded-full shadow-xl transition duration-300
                         bg-emerald-600 text-white flex items-center justify-center
                         hover:bg-emerald-700
-                        disabled:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-60
+                        disabled:bg-gray-400 disabled:cursor-not-allowed disabled:opacity-80
+                        disabled:border-emerald-600
                     "
                     disabled={
                         activeAyat <= activeSurah?.memorizedAyat?.length ||
@@ -80,7 +81,7 @@ const NavigationControls = ({
                     }
                     aria-label="Tandai Hafal"
                 >
-                    <span className="text-xl">✅</span>
+                    <span className="text-sm font-bold">Hafal</span>
                 </button>
             </div>
         </div>
