@@ -33,6 +33,7 @@ function normalizeQuranComResponse(verseData) {
         text: verseData.text_uthmani, // Arabic text
         translation: translation, // Translation text
         surah: surahNum,
+        ayat: ayatNum,
         numberInSurah: verseData.verse_number,
         // Optional fields if available or needed
         surahName: '', // Not returned by this endpoint
