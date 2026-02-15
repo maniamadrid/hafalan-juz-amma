@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import SurahList from './components/SurahList/SurahList';
 import SurahHeader from './components/SurahHeader/SurahHeader';
 import AyatDisplay from './components/AyatDisplay/AyatDisplay';
-import NavigationControls from './components/NavigationControls/NavigationControls';
+//import NavigationControls from './components/NavigationControls/NavigationControls';
+import NavigationControls from "./components/NavigationControls/NavigationControls";
 import HafalanModeToggle from './components/HafalanModeToggle/HafalanModeToggle';
 import useHafalan from './hooks/useHafalan';
 
