@@ -14,6 +14,6 @@ const SurahHeader = ({ activeSurah }) => {
             </div>
         </div>
     );
-}
+};
 
 export default SurahHeader;
