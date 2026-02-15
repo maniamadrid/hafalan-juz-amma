@@ -23,17 +23,21 @@ function AyatDisplay({ ayatData, activeAyat, hiddenText }) {
             </div>
 
             {/* Arab Texts */}
-            <div className="text-emerald-700 text-center mb-4 p-3 bg-gray-50 rounded-lg border border-gray-200 text-lg md:text-2xl leading-loose" dir="rtl">
+            <div
+                className="text-center mb-4 py-2 text-[28px] leading-[2] text-[#1a1a1a]"
+                dir="rtl"
+                style={{ fontFamily: "'Traditional Arabic', 'Amiri', serif" }}
+            >
                 {displayedText}
             </div>
 
             {/* Translation */}
             {ayatData.translation && (
-                <div className="mt-6 p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-500">
-                    <h3 className="text-sm font-semibold text-emerald-700 mb-3 uppercase tracking-wide">
+                <div className="mt-4 pt-4 px-6 pb-5 bg-[#f5f7f5] border-t border-[#e8e8e8]">
+                    <h3 className="text-[10px] font-semibold text-[#999] mb-1.5 uppercase tracking-[1px]">
                         Terjemahan
                     </h3>
-                    <p className="text-gray-700 leading-relaxed text-2lg md:text-xl">
+                    <p className="text-[13.5px] text-[#555] leading-[1.6]">
                         {ayatData.translation}
                     </p>
                 </div>
