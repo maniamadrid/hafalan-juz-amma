@@ -46,10 +46,10 @@ A React-based web application designed to help users memorize short Surahs (Juz 
 
 1. **Select a Surah**: Choose a Surah from the sidebar list (Juz Amma).
 2. **Read and Memorize**: Read the Arabic text and translation.
-3. **Test Yourself**: Click the "Sembunyikan Ayat" button to hide the text and test your memory.
+3. **Test Yourself**: Click the eye button to hide the text and test your memory.
 4. **Track Progress**:
-   - Use the "Next" and "Prev" buttons to navigate.
-   - Click "Sudah Hafal" when you have memorized an Ayat.
+   - Use the "Maju" and "Mundur" buttons to navigate.
+   - Click "Hafal" when you have memorized an Ayat.
    - Your progress is automatically saved.
 
 ## Project Structure
