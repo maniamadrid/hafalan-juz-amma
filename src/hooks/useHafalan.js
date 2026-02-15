@@ -1,6 +1,6 @@
 // hooks/useHafalan.js
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { fetchAyat } from '../utils/hafalanApi';
 import { saveProgress, loadProgress } from '../utils/historyManager';
 
@@ -38,22 +38,56 @@ const initialSurahs = [
     { id: 108, name: "Al-Kausar", ayatCount: 3 },
     { id: 109, name: "Al-Kafirun", ayatCount: 6 },
     { id: 110, name: "An-Nasr", ayatCount: 3 },
-    { id: 111, name: "Al-Lahab", ayatCount: 5 }, // Nama populer di Indonesia
+    { id: 111, name: "Al-Lahab", ayatCount: 5 },
     { id: 112, name: "Al-Ikhlas", ayatCount: 4 },
     { id: 113, name: "Al-Falaq", ayatCount: 5 },
     { id: 114, name: "An-Nas", ayatCount: 6 }
 ];
+const DEFAULT_LANGUAGE = 'id';
+const getInitialHydration = () => {
+    const savedProgress = loadProgress();
+
+    if (!savedProgress) {
+        return {
+            hydratedSurahs: initialSurahs,
+            initialActiveSurah: null,
+            initialActiveAyat: null
+        };
+    }
+
+    const hydratedSurahs = initialSurahs.map(s => ({
+        ...s,
+        isCompleted: savedProgress[s.id]?.isCompleted || false,
+        memorizedAyat: savedProgress[s.id]?.memorizedAyat || [],
+        activeAyat: savedProgress[s.id]?.activeAyat || 0
+    }));
+
+    const lastActiveSurahId = Object.keys(savedProgress).find(
+        id => savedProgress[id].activeAyat > 0
+    );
+
+    const initialActiveSurah = lastActiveSurahId
+        ? hydratedSurahs.find(s => s.id === parseInt(lastActiveSurahId))
+        : null;
+
+    return {
+        hydratedSurahs,
+        initialActiveSurah: initialActiveSurah || null,
+        initialActiveAyat: initialActiveSurah?.activeAyat || null
+    };
+}
 
 export default function useHafalan() {
-    const [surahs, setSurahs] = useState(initialSurahs);
-    const [activeSurah, setActiveSurah] = useState(null);
-    const [activeAyat, setActiveAyat] = useState(null);
+    const initialHydration = getInitialHydration();
+    const [surahs, setSurahs] = useState(initialHydration.hydratedSurahs);
+    const [activeSurah, setActiveSurah] = useState(initialHydration.initialActiveSurah);
+    const [activeAyat, setActiveAyat] = useState(initialHydration.initialActiveAyat);
     const [ayatData, setAyatData] = useState(null);
-    const [selectedLanguage, setSelectedLanguage] = useState('id');
+    const selectedLanguage = DEFAULT_LANGUAGE;
     const [hafalanMode, setHafalanMode] = useState('show');
     const [hiddenText, setHiddenText] = useState(false);
 
-    useEffect(() => {
+    /*useEffect(() => {
         // get saved progress from localStorage
         const savedProgress = loadProgress();
             
@@ -78,7 +112,7 @@ export default function useHafalan() {
                 setActiveAyat(surah.activeAyat || 1);
             }
         }
-    }, [])
+    }, [])*/
 
     // When a user marks an Ayat as memorized, surahs state is updated and saved to localStorage
     const persistProgress = (currentSurahs) => {
