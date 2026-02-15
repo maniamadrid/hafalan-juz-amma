@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import SurahList from './components/SurahList/SurahList';
-import SurahHeader from './components/SurahHeader/SurahHeader';
 import AyatDisplay from './components/AyatDisplay/AyatDisplay';
 //import NavigationControls from './components/NavigationControls/NavigationControls';
 import NavigationControls from "./components/NavigationControls/NavigationControls";
@@ -33,37 +32,35 @@ function App() {
         handleSelectSurah(surah);
         setIsMobileMenuOpen(false);
     };
+    const memorizedAyatCount = surahs.filter(s => s.isCompleted).length || 0;
+    const totalAyatCount = surahs.length;
 
     return (
         <div className="flex flex-col h-screen bg-gray-100 font-inter">
             {/* Header */}
-            <header className="flex items-center justify-between p-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md">
-                <button
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="md:hidden p-2 rounded-lg hover:bg-emerald-600 transition-colors"
-                    aria-label="Toggle menu"
-                >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        {isMobileMenuOpen ? (
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        ) : (
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                        )}
-                    </svg>
-                </button>
-
-                <div className="flex-1 md:flex-none">
-                    <h1 className="text-xl md:text-3xl font-bold">Hafalan Juz Amma</h1>
-                    <p className="text-emerald-100 text-xs md:text-sm hidden sm:block">Surat-surat Pendek untuk Hafalan</p>
-                </div>
-
-                <div className="flex gap-3">
-                    <div className="text-right text-xs md:text-sm">
-                        <div className="text-emerald-100 hidden sm:block">Total Progress</div>
-                        <div className="font-bold">
-                            {surahs.filter(s => s.isCompleted).length} dari {surahs.length} Surah
-                        </div>
+            <header className="p-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md">
+                <div className="flex items-center gap-2">
+                    <button
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        className="md:hidden p-2 rounded-lg hover:bg-emerald-600 transition-colors"
+                        aria-label="Toggle menu"
+                    >
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            {isMobileMenuOpen ? (
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            ) : (
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                            )}
+                        </svg>
+                    </button>
+                    <span className="hidden md:inline text-lg opacity-90" aria-hidden="true">&#9776;</span>
+                    <h1 className="text-lg md:text-xl font-semibold">Hafalan Juz Amma</h1>
+                    <div className="ml-auto text-sm text-emerald-100">
+                        {memorizedAyatCount}/{totalAyatCount}
                     </div>
+                </div>
+                <div className="text-center mt-1.5 text-sm text-emerald-100">
+                    {activeSurah ? `${activeSurah.name} · ${activeSurah.ayatCount} ayat` : "Pilih surat untuk memulai"}
                 </div>
             </header>
 
@@ -121,29 +118,12 @@ function App() {
                         </div>
                     ) : (
                         <div className="flex flex-col h-full">
-                            <SurahHeader
-                                activeSurah={activeSurah}
-                                activeAyat={activeAyat}
-                            />
-
                             <HafalanModeToggle
                                 hafalanMode={hafalanMode}
                                 toggleHafalanMode={toggleHafalanMode}
                             />
 
                             <div className="relative flex items-center justify-center gap-2 md:block">
-                                {/* Mobile Previous Button */}
-                                <button
-                                    onClick={handlePreviousAyat}
-                                    disabled={activeAyat <= 1}
-                                    className="md:hidden absolute left-2 top-6 -translate-y-1/2 p-2 bg-gray-200 text-gray-700 rounded-full shadow-md hover:bg-gray-300 disabled:opacity-30 disabled:cursor-not-allowed z-10"
-                                    aria-label="Previous Ayat"
-                                >
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                    </svg>
-                                </button>
-
                                 <div className="flex-1 min-w-0">
                                     <AyatDisplay
                                         ayatData={ayatData}
@@ -151,22 +131,6 @@ function App() {
                                         hiddenText={hiddenText}
                                     />
                                 </div>
-
-                                {/* Mobile Next Button */}
-                                <button
-                                    onClick={handleNextAyat}
-                                    disabled={
-                                        !activeSurah ||
-                                        activeAyat === activeSurah.ayatCount ||
-                                        (activeSurah.memorizedAyat && activeAyat > activeSurah.memorizedAyat.length)
-                                    }
-                                    className="md:hidden absolute right-2 top-6 -translate-y-1/2 p-2 bg-gray-200 text-gray-700 rounded-full shadow-md hover:bg-gray-300 disabled:opacity-30 disabled:cursor-not-allowed z-10"
-                                    aria-label="Next Ayat"
-                                >
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </button>
                             </div>
 
                             <NavigationControls
