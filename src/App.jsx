@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import SurahList from './components/SurahList/SurahList';
 import AyatDisplay from './components/AyatDisplay/AyatDisplay';
-//import NavigationControls from './components/NavigationControls/NavigationControls';
 import NavigationControls from "./components/NavigationControls/NavigationControls";
 import HafalanModeToggle from './components/HafalanModeToggle/HafalanModeToggle';
 import useHafalan from './hooks/useHafalan';
@@ -53,7 +52,7 @@ function App() {
                             )}
                         </svg>
                     </button>
-                    <span className="hidden md:inline text-lg opacity-90" aria-hidden="true">&#9776;</span>
+                    <span className="hidden md:hidden text-lg opacity-90" aria-hidden="true">&#9776;</span>
                     <h1 className="text-lg md:text-xl font-semibold">Hafalan Juz Amma</h1>
                     <div className="ml-auto text-sm text-emerald-100">
                         {memorizedAyatCount}/{totalAyatCount}
